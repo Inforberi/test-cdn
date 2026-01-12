@@ -1,7 +1,7 @@
 .PHONY: help build up down restart logs shell clean dev prod check-docker docker-start
 
 # Переменные
-COMPOSE = docker-compose
+COMPOSE = docker compose
 DOCKER = docker
 CONTAINER = strapi-data-to-table
 
