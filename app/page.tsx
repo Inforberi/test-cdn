@@ -9,6 +9,7 @@ import { Image as ImageIcon } from 'lucide-react';
 import Image from 'next/image';
 import { ExportButtons } from '@/components/export-buttons';
 import { mapImageUrlsToLocal } from '@/lib/image-mapping';
+import { toCdnUrl } from '@/lib/image-url';
 
 interface ProductRow {
     name: string;
@@ -145,7 +146,7 @@ export default async function StrapiDataProcessor() {
                                             <div className="relative aspect-square w-full overflow-hidden bg-muted">
                                                 {imageUrl ? (
                                                     <Image
-                                                        src={imageUrl}
+                                                        src={toCdnUrl(imageUrl)}
                                                         alt={
                                                             row.name || 'Товар'
                                                         }
