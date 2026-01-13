@@ -8,6 +8,7 @@ import {
 import { Image as ImageIcon } from 'lucide-react';
 import Image from 'next/image';
 import { ExportButtons } from '@/components/export-buttons';
+import { mapImageUrlsToLocal } from '@/lib/image-mapping';
 
 interface ProductRow {
     name: string;
@@ -91,8 +92,8 @@ async function fetchData(): Promise<ProductRow[]> {
         }
     });
 
-    // Ограничиваем до 200 элементов
-    return processedData.slice(0, 200);
+    // Преобразуем URL на локальные пути с проверкой существования файлов в статике
+    return await mapImageUrlsToLocal(processedData);
 }
 
 export default async function StrapiDataProcessor() {
@@ -134,11 +135,7 @@ export default async function StrapiDataProcessor() {
                         <CardContent>
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                                 {data.map((row, index) => {
-                                    const imageUrl = row.hero_image_url
-                                        ? row.hero_image_url.startsWith('http')
-                                            ? row.hero_image_url
-                                            : `https://strapi.fiftyfourms.com${row.hero_image_url}`
-                                        : null;
+                                    const imageUrl = row.hero_image_url;
 
                                     return (
                                         <Card
